@@ -1,4 +1,4 @@
-// Generated from x:/source/Antlr/FrasMaciej/AntlerUniversityProject/Maps/Maps/GetUMPLex.g4 by ANTLR 4.13.1
+// Generated from d://Studia-2st//Antler//AntlerUniversityProject//Maps//Maps//GetUMPLex.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

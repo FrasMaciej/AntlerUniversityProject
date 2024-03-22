@@ -11,10 +11,10 @@ options {
 file :
  	section*
  	EOF
- ;
- 
+ ; 
+   
 section:
- 	SECTstart
+ 	SECTstart 
  	kvEq*
  	SECTend
 ;
