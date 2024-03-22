@@ -6,7 +6,7 @@ parser grammar GetUMPStx;
 options {
   tokenVocab=GetUMPLex;
 }
-
+  
 
 file :
  	section*
@@ -19,7 +19,7 @@ section:
  	SECTend
 ;
 
-idxEqId: ID NUM
+idxEqId: ID NUM 
 ;
 
 kvEq:
