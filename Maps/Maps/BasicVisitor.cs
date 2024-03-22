@@ -26,7 +26,7 @@ namespace Maps
         public override object VisitSection([NotNull] GetUMPStx.SectionContext context)
         {
             Console.WriteLine(context.GetText());
-            count++;
+            SectionCount++;
             return base.VisitSection(context);
         }
 
