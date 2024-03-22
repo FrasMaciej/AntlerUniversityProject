@@ -2,36 +2,35 @@
 using Antlr4.StringTemplate;
 using Antlr4.Runtime;
 using System.Text;
-using testcsharp2;
+using Maps;
+using Antlr4.Runtime.Tree;
+
 Console.WriteLine("Hello, World!");
 
 var st = new Antlr4.StringTemplate.Template("Hello, <name>!");
 st.Add("name", "World from StringTemplate");
 Console.WriteLine(st.Render());
 
+string input;
 
-
-
-string input = "";
-
-StringBuilder text = new StringBuilder();
-Console.WriteLine("Input the chat.");
-while((input = Console.ReadLine() ?? throw new Exception()) != "u0004")
+using(FileStream fs = new FileStream("ikonki-reczniak.txt", FileMode.Open, FileAccess.Read))
 {
-    text.AppendLine(input);
+    using(StreamReader sr = new StreamReader(fs))
+    {
+        input = sr.ReadToEnd();
+    }
 }
 
-AntlrInputStream inputStream = new AntlrInputStream(text.ToString());
-SpeakLexer speakLexer = new SpeakLexer(inputStream);
-CommonTokenStream commonTokenStream = new CommonTokenStream(speakLexer);
-SpeakParser speakParser = new SpeakParser(commonTokenStream);
 
-SpeakParser.ChatContext chatContext = speakParser.chat();
-BasicSpeakVisitor visitor = new BasicSpeakVisitor();
-visitor.Visit(chatContext);
-foreach(var line in visitor.Lines)
-{
-    Console.WriteLine("{0} has said {1}", line.Person, line.Text);
-}
+var lexer = new GetUMPLex(new AntlrInputStream(input));
+
+var tokens = new CommonTokenStream(lexer);
+
+var parser = new GetUMPStx(tokens);
+
+GetUMPStx.FileContext file = parser.file();
+
+var visitor = new BasicVisitor();
+visitor.Visit(file);
 
 Console.ReadLine();

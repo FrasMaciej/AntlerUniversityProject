@@ -12,4 +12,10 @@
       <PackageReference Include="Domemtech.StringTemplate4" Version="4.3.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="ikonki-reczniak.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

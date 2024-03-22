@@ -1,0 +1,12 @@
+SECTstart=1
+COMMENT=2
+WS=3
+EQ=4
+NL=5
+IntComment=6
+SECTend=7
+LabI=8
+ID=9
+NUM=10
+V=11
+'='=4

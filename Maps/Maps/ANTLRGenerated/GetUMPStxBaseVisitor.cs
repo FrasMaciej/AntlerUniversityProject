@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from x:/source/Antlr/FrasMaciej/AntlerUniversityProject/Maps/Maps/Speak.g4 by ANTLR 4.13.1
+// Generated from x:/source/Antlr/FrasMaciej/AntlerUniversityProject/Maps/Maps/GetUMPStx.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -25,7 +25,7 @@ using IToken = Antlr4.Runtime.IToken;
 using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 
 /// <summary>
-/// This class provides an empty implementation of <see cref="ISpeakVisitor{Result}"/>,
+/// This class provides an empty implementation of <see cref="IGetUMPStxVisitor{Result}"/>,
 /// which can be extended to create a visitor which only needs to handle a subset
 /// of the available methods.
 /// </summary>
@@ -33,9 +33,9 @@ using ParserRuleContext = Antlr4.Runtime.ParserRuleContext;
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "4.13.1")]
 [System.Diagnostics.DebuggerNonUserCode]
 [System.CLSCompliant(false)]
-public partial class SpeakBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, ISpeakVisitor<Result> {
+public partial class GetUMPStxBaseVisitor<Result> : AbstractParseTreeVisitor<Result>, IGetUMPStxVisitor<Result> {
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SpeakParser.chat"/>.
+	/// Visit a parse tree produced by <see cref="GetUMPStx.file"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -43,9 +43,9 @@ public partial class SpeakBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitChat([NotNull] SpeakParser.ChatContext context) { return VisitChildren(context); }
+	public virtual Result VisitFile([NotNull] GetUMPStx.FileContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SpeakParser.line"/>.
+	/// Visit a parse tree produced by <see cref="GetUMPStx.section"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -53,9 +53,10 @@ public partial class SpeakBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitLine([NotNull] SpeakParser.LineContext context) { return VisitChildren(context); }
+	public virtual Result VisitSection([NotNull] GetUMPStx.SectionContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SpeakParser.name"/>.
+	/// Visit a parse tree produced by the <c>simpleEq</c>
+	/// labeled alternative in <see cref="GetUMPStx.kvEq"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -63,9 +64,10 @@ public partial class SpeakBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitName([NotNull] SpeakParser.NameContext context) { return VisitChildren(context); }
+	public virtual Result VisitSimpleEq([NotNull] GetUMPStx.SimpleEqContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="SpeakParser.opinion"/>.
+	/// Visit a parse tree produced by the <c>idxEq</c>
+	/// labeled alternative in <see cref="GetUMPStx.kvEq"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -73,5 +75,5 @@ public partial class SpeakBaseVisitor<Result> : AbstractParseTreeVisitor<Result>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitOpinion([NotNull] SpeakParser.OpinionContext context) { return VisitChildren(context); }
+	public virtual Result VisitIdxEq([NotNull] GetUMPStx.IdxEqContext context) { return VisitChildren(context); }
 }
