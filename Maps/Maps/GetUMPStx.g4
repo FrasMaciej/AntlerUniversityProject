@@ -19,7 +19,11 @@ section:
  	SECTend
 ;
 
+idxEqId: ID NUM
+;
+
 kvEq:
-	key=(ID|LabI) EQ V #simpleEq
-|	ID NUM EQ V #idxEq
+	key=(ID|LabI) EQ val=V #simpleEq
+|	idx=idxEqId EQ val=V #idxEq
+//|	ID NUM EQ val=V #idxEq
 ;

@@ -20,7 +20,16 @@ namespace Maps
 
         public override object VisitIdxEq([NotNull] GetUMPStx.IdxEqContext context)
         {
+            var a = context.V();
+            var id = context.idx.GetText();
+            var idnum = context.idx.NUM();
+            var b = context.val.Text;
             return base.VisitIdxEq(context);
+        }
+
+        public override object VisitSimpleEq([NotNull] GetUMPStx.SimpleEqContext context)
+        {
+            return base.VisitSimpleEq(context);
         }
 
         public override object VisitSection([NotNull] GetUMPStx.SectionContext context)
@@ -30,9 +39,5 @@ namespace Maps
             return base.VisitSection(context);
         }
 
-        public override object VisitSimpleEq([NotNull] GetUMPStx.SimpleEqContext context)
-        {
-            return base.VisitSimpleEq(context);
-        }
     }
 }

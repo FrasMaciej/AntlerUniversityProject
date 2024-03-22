@@ -39,9 +39,9 @@ public partial class GetUMPStx : Parser {
 		SECTstart=1, COMMENT=2, WS=3, EQ=4, NL=5, IntComment=6, SECTend=7, LabI=8, 
 		ID=9, NUM=10, V=11;
 	public const int
-		RULE_file = 0, RULE_section = 1, RULE_kvEq = 2;
+		RULE_file = 0, RULE_section = 1, RULE_idxEqId = 2, RULE_kvEq = 3;
 	public static readonly string[] ruleNames = {
-		"file", "section", "kvEq"
+		"file", "section", "idxEqId", "kvEq"
 	};
 
 	private static readonly string[] _LiteralNames = {
@@ -112,21 +112,21 @@ public partial class GetUMPStx : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 9;
+			State = 11;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==SECTstart) {
 				{
 				{
-				State = 6;
+				State = 8;
 				section();
 				}
 				}
-				State = 11;
+				State = 13;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 12;
+			State = 14;
 			Match(Eof);
 			}
 		}
@@ -171,24 +171,64 @@ public partial class GetUMPStx : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 14;
+			State = 16;
 			Match(SECTstart);
-			State = 18;
+			State = 20;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==LabI || _la==ID) {
 				{
 				{
-				State = 15;
+				State = 17;
 				kvEq();
 				}
 				}
-				State = 20;
+				State = 22;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 21;
+			State = 23;
 			Match(SECTend);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class IdxEqIdContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ID() { return GetToken(GetUMPStx.ID, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUM() { return GetToken(GetUMPStx.NUM, 0); }
+		public IdxEqIdContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_idxEqId; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IGetUMPStxVisitor<TResult> typedVisitor = visitor as IGetUMPStxVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitIdxEqId(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public IdxEqIdContext idxEqId() {
+		IdxEqIdContext _localctx = new IdxEqIdContext(Context, State);
+		EnterRule(_localctx, 4, RULE_idxEqId);
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 25;
+			Match(ID);
+			State = 26;
+			Match(NUM);
 			}
 		}
 		catch (RecognitionException re) {
@@ -216,6 +256,7 @@ public partial class GetUMPStx : Parser {
 	}
 	public partial class SimpleEqContext : KvEqContext {
 		public IToken key;
+		public IToken val;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQ() { return GetToken(GetUMPStx.EQ, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode V() { return GetToken(GetUMPStx.V, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ID() { return GetToken(GetUMPStx.ID, 0); }
@@ -229,9 +270,12 @@ public partial class GetUMPStx : Parser {
 		}
 	}
 	public partial class IdxEqContext : KvEqContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ID() { return GetToken(GetUMPStx.ID, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NUM() { return GetToken(GetUMPStx.NUM, 0); }
+		public IdxEqIdContext idx;
+		public IToken val;
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQ() { return GetToken(GetUMPStx.EQ, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public IdxEqIdContext idxEqId() {
+			return GetRuleContext<IdxEqIdContext>(0);
+		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode V() { return GetToken(GetUMPStx.V, 0); }
 		public IdxEqContext(KvEqContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
@@ -245,17 +289,17 @@ public partial class GetUMPStx : Parser {
 	[RuleVersion(0)]
 	public KvEqContext kvEq() {
 		KvEqContext _localctx = new KvEqContext(Context, State);
-		EnterRule(_localctx, 4, RULE_kvEq);
+		EnterRule(_localctx, 6, RULE_kvEq);
 		int _la;
 		try {
-			State = 30;
+			State = 35;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
 			case 1:
 				_localctx = new SimpleEqContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 23;
+				State = 28;
 				((SimpleEqContext)_localctx).key = TokenStream.LT(1);
 				_la = TokenStream.LA(1);
 				if ( !(_la==LabI || _la==ID) ) {
@@ -265,24 +309,22 @@ public partial class GetUMPStx : Parser {
 					ErrorHandler.ReportMatch(this);
 				    Consume();
 				}
-				State = 24;
+				State = 29;
 				Match(EQ);
-				State = 25;
-				Match(V);
+				State = 30;
+				((SimpleEqContext)_localctx).val = Match(V);
 				}
 				break;
 			case 2:
 				_localctx = new IdxEqContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 26;
-				Match(ID);
-				State = 27;
-				Match(NUM);
-				State = 28;
+				State = 31;
+				((IdxEqContext)_localctx).idx = idxEqId();
+				State = 32;
 				Match(EQ);
-				State = 29;
-				Match(V);
+				State = 33;
+				((IdxEqContext)_localctx).val = Match(V);
 				}
 				break;
 			}
@@ -299,15 +341,17 @@ public partial class GetUMPStx : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,11,33,2,0,7,0,2,1,7,1,2,2,7,2,1,0,5,0,8,8,0,10,0,12,0,11,9,0,1,0,1,
-		0,1,1,1,1,5,1,17,8,1,10,1,12,1,20,9,1,1,1,1,1,1,2,1,2,1,2,1,2,1,2,1,2,
-		1,2,3,2,31,8,2,1,2,0,0,3,0,2,4,0,1,1,0,8,9,32,0,9,1,0,0,0,2,14,1,0,0,0,
-		4,30,1,0,0,0,6,8,3,2,1,0,7,6,1,0,0,0,8,11,1,0,0,0,9,7,1,0,0,0,9,10,1,0,
-		0,0,10,12,1,0,0,0,11,9,1,0,0,0,12,13,5,0,0,1,13,1,1,0,0,0,14,18,5,1,0,
-		0,15,17,3,4,2,0,16,15,1,0,0,0,17,20,1,0,0,0,18,16,1,0,0,0,18,19,1,0,0,
-		0,19,21,1,0,0,0,20,18,1,0,0,0,21,22,5,7,0,0,22,3,1,0,0,0,23,24,7,0,0,0,
-		24,25,5,4,0,0,25,31,5,11,0,0,26,27,5,9,0,0,27,28,5,10,0,0,28,29,5,4,0,
-		0,29,31,5,11,0,0,30,23,1,0,0,0,30,26,1,0,0,0,31,5,1,0,0,0,3,9,18,30
+		4,1,11,38,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,1,0,5,0,10,8,0,10,0,12,0,13,
+		9,0,1,0,1,0,1,1,1,1,5,1,19,8,1,10,1,12,1,22,9,1,1,1,1,1,1,2,1,2,1,2,1,
+		3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,36,8,3,1,3,0,0,4,0,2,4,6,0,1,1,0,8,9,36,
+		0,11,1,0,0,0,2,16,1,0,0,0,4,25,1,0,0,0,6,35,1,0,0,0,8,10,3,2,1,0,9,8,1,
+		0,0,0,10,13,1,0,0,0,11,9,1,0,0,0,11,12,1,0,0,0,12,14,1,0,0,0,13,11,1,0,
+		0,0,14,15,5,0,0,1,15,1,1,0,0,0,16,20,5,1,0,0,17,19,3,6,3,0,18,17,1,0,0,
+		0,19,22,1,0,0,0,20,18,1,0,0,0,20,21,1,0,0,0,21,23,1,0,0,0,22,20,1,0,0,
+		0,23,24,5,7,0,0,24,3,1,0,0,0,25,26,5,9,0,0,26,27,5,10,0,0,27,5,1,0,0,0,
+		28,29,7,0,0,0,29,30,5,4,0,0,30,36,5,11,0,0,31,32,3,4,2,0,32,33,5,4,0,0,
+		33,34,5,11,0,0,34,36,1,0,0,0,35,28,1,0,0,0,35,31,1,0,0,0,36,7,1,0,0,0,
+		3,11,20,35
 	};
 
 	public static readonly ATN _ATN =
