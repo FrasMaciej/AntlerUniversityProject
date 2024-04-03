@@ -13,13 +13,15 @@ Console.WriteLine(st.Render());
 
 string input;
 
-using(FileStream fs = new FileStream("ikonki-reczniak.txt", FileMode.Open, FileAccess.Read))
+/*using(FileStream fs = new FileStream("wynik.mp", FileMode.Open, FileAccess.Read))
 {
     using(StreamReader sr = new StreamReader(fs))
     {
         input = sr.ReadToEnd();
     }
-}
+}*/
+
+input = File.ReadAllText("wynik.mp",Encoding.GetEncoding("ISO-8859-1"));
 
 
 var lexer = new GetUMPLex(new AntlrInputStream(input));

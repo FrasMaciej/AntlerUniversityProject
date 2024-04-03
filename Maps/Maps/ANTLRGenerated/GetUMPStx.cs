@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from d://Studia-2st//Antler//AntlerUniversityProject//Maps//Maps//GetUMPStx.g4 by ANTLR 4.13.1
+// Generated from x:/source/Antlr/FrasMaciej/AntlerUniversityProject/Maps/Maps/GetUMPStx.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162

@@ -34,7 +34,7 @@ namespace Maps
 
         public override object VisitSection([NotNull] GetUMPStx.SectionContext context)
         {
-            Console.WriteLine(context.GetText());
+            //Console.WriteLine(context.GetText());
             SectionCount++;
             return base.VisitSection(context);
         }

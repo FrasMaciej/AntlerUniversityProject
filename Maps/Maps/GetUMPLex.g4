@@ -20,7 +20,7 @@ mode SECTION;
 
 EQ : '=' ->pushMode(VALUE);
 
-NL : [\r\n]+ -> skip ; // skip newlines
+NL : ([\r\n]+|[\r]+|[\n]+) -> skip; // skip newlines
 
 IntComment : '"' .*? '\n' -> skip;
 
@@ -34,4 +34,4 @@ NUM : [0-9]+;
 
 mode VALUE;
 
-V : ~[\r\n]* '\n' -> popMode; 
+V : ~([\r\n]|[\r]|[\n])* ('\r\n'|'\r'|'\n') -> popMode; 

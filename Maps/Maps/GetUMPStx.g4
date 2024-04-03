@@ -23,7 +23,7 @@ idxEqId: ID NUM
 ;
 
 kvEq:
-	key=(ID|LabI) EQ val=V #simpleEq
-|	idx=idxEqId EQ val=V #idxEq
+	key=(ID|LabI) EQ val=V (NL)? #simpleEq
+|	idx=idxEqId EQ val=V (NL)? #idxEq
 //|	ID NUM EQ val=V #idxEq
 ;
