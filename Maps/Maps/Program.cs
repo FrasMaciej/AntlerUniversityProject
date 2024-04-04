@@ -1,9 +1,34 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using Antlr4.StringTemplate;
 using Antlr4.Runtime;
 using System.Text;
+using Npgsql;
+using Cocona;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Maps;
-using Antlr4.Runtime.Tree;
+using Maps.Persistance;
+using System.Reflection;
+
+var builder = CoconaApp.CreateBuilder();
+
+builder.Configuration.AddJsonFile("appsettings.json", true).AddEnvironmentVariables().AddUserSecrets<Program>();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
+dataSourceBuilder.UseNetTopologySuite();
+var dataSource = dataSourceBuilder.Build();
+
+builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(dataSource));
+
+
+
+var app = builder.Build();
+
+app.AddCommand("testdb", AppCommandDefinitions.TestDb);
+app.AddCommand(AppCommandDefinitions.TestDb);
+
+app.Run();
 
 Console.WriteLine("Hello, World!");
 
@@ -12,6 +37,11 @@ st.Add("name", "World from StringTemplate");
 Console.WriteLine(st.Render());
 
 string input;
+
+
+
+
+
 
 /*using(FileStream fs = new FileStream("wynik.mp", FileMode.Open, FileAccess.Read))
 {
