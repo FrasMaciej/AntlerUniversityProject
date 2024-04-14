@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Antlr4.Runtime;
+﻿using Antlr4.Runtime;
 using System.Text;
 using Npgsql;
 using Cocona;
@@ -8,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Maps;
 using Maps.Persistance;
-using System.Reflection;
 
 var builder = CoconaApp.CreateBuilder();
 
@@ -20,8 +18,6 @@ dataSourceBuilder.UseNetTopologySuite();
 var dataSource = dataSourceBuilder.Build();
 
 builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(dataSource));
-
-
 
 var app = builder.Build();
 
@@ -38,21 +34,9 @@ Console.WriteLine(st.Render());
 
 string input;
 
-
-
-
-
-
-/*using(FileStream fs = new FileStream("wynik.mp", FileMode.Open, FileAccess.Read))
-{
-    using(StreamReader sr = new StreamReader(fs))
-    {
-        input = sr.ReadToEnd();
-    }
-}*/
-
-input = File.ReadAllText("wynik.mp",Encoding.GetEncoding("ISO-8859-1"));
-
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+//input = File.ReadAllText("wynik.mp",Encoding.GetEncoding("ISO-8859-1"));
+input = File.ReadAllText("wynik.mp",Encoding.GetEncoding(1250));
 
 var lexer = new GetUMPLex(new AntlrInputStream(input));
 
