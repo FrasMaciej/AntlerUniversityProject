@@ -14,9 +14,34 @@ file :
  ; 
    
 section:
- 	SECTstart 
- 	kvEq*
- 	SECTend
+	polygon_section |
+	polyline_section |
+ 	poi_section | 
+	default_section
+;
+
+polygon_section :
+	POLYGON_SECTstart
+	kvEq*
+	SECTend
+;
+
+polyline_section:
+	POLYLINE_SECTstart
+	kvEq*
+	SECTend
+;
+
+poi_section:
+	POI_SECTstart
+	kvEq*
+	SECTend
+;
+
+default_section:
+	SECTstart
+	kvEq*
+	SECTend
 ;
 
 idxEqId: ID NUM 

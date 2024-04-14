@@ -44,6 +44,30 @@ public interface IGetUMPStxVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitSection([NotNull] GetUMPStx.SectionContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="GetUMPStx.polygon_section"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPolygon_section([NotNull] GetUMPStx.Polygon_sectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="GetUMPStx.polyline_section"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPolyline_section([NotNull] GetUMPStx.Polyline_sectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="GetUMPStx.poi_section"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitPoi_section([NotNull] GetUMPStx.Poi_sectionContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="GetUMPStx.default_section"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDefault_section([NotNull] GetUMPStx.Default_sectionContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="GetUMPStx.idxEqId"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

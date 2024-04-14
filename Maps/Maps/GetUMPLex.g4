@@ -3,6 +3,11 @@
  */
 lexer grammar GetUMPLex;
 
+POLYGON_SECTstart : '[POLYGON]' -> pushMode(SECTION);
+
+POLYLINE_SECTstart : '[POLYLINE]' -> pushMode(SECTION);
+
+POI_SECTstart : '[POI]' -> pushMode(SECTION);
 
 SECTstart :  '[' .*? ']' -> pushMode(SECTION); 
 

@@ -36,20 +36,24 @@ public partial class GetUMPStx : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		SECTstart=1, COMMENT=2, WS=3, EQ=4, NL=5, IntComment=6, SECTend=7, LabI=8, 
-		ID=9, NUM=10, V=11;
+		POLYGON_SECTstart=1, POLYLINE_SECTstart=2, POI_SECTstart=3, SECTstart=4, 
+		COMMENT=5, WS=6, EQ=7, NL=8, IntComment=9, SECTend=10, LabI=11, ID=12, 
+		NUM=13, V=14;
 	public const int
-		RULE_file = 0, RULE_section = 1, RULE_idxEqId = 2, RULE_kvEq = 3;
+		RULE_file = 0, RULE_section = 1, RULE_polygon_section = 2, RULE_polyline_section = 3, 
+		RULE_poi_section = 4, RULE_default_section = 5, RULE_idxEqId = 6, RULE_kvEq = 7;
 	public static readonly string[] ruleNames = {
-		"file", "section", "idxEqId", "kvEq"
+		"file", "section", "polygon_section", "polyline_section", "poi_section", 
+		"default_section", "idxEqId", "kvEq"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, null, null, null, "'='"
+		null, "'[POLYGON]'", "'[POLYLINE]'", "'[POI]'", null, null, null, "'='"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, "SECTstart", "COMMENT", "WS", "EQ", "NL", "IntComment", "SECTend", 
-		"LabI", "ID", "NUM", "V"
+		null, "POLYGON_SECTstart", "POLYLINE_SECTstart", "POI_SECTstart", "SECTstart", 
+		"COMMENT", "WS", "EQ", "NL", "IntComment", "SECTend", "LabI", "ID", "NUM", 
+		"V"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -112,21 +116,21 @@ public partial class GetUMPStx : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 11;
+			State = 19;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
-			while (_la==SECTstart) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 30L) != 0)) {
 				{
 				{
-				State = 8;
+				State = 16;
 				section();
 				}
 				}
-				State = 13;
+				State = 21;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 14;
+			State = 22;
 			Match(Eof);
 			}
 		}
@@ -142,13 +146,17 @@ public partial class GetUMPStx : Parser {
 	}
 
 	public partial class SectionContext : ParserRuleContext {
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SECTstart() { return GetToken(GetUMPStx.SECTstart, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SECTend() { return GetToken(GetUMPStx.SECTend, 0); }
-		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext[] kvEq() {
-			return GetRuleContexts<KvEqContext>();
+		[System.Diagnostics.DebuggerNonUserCode] public Polygon_sectionContext polygon_section() {
+			return GetRuleContext<Polygon_sectionContext>(0);
 		}
-		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext kvEq(int i) {
-			return GetRuleContext<KvEqContext>(i);
+		[System.Diagnostics.DebuggerNonUserCode] public Polyline_sectionContext polyline_section() {
+			return GetRuleContext<Polyline_sectionContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public Poi_sectionContext poi_section() {
+			return GetRuleContext<Poi_sectionContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public Default_sectionContext default_section() {
+			return GetRuleContext<Default_sectionContext>(0);
 		}
 		public SectionContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -167,27 +175,283 @@ public partial class GetUMPStx : Parser {
 	public SectionContext section() {
 		SectionContext _localctx = new SectionContext(Context, State);
 		EnterRule(_localctx, 2, RULE_section);
+		try {
+			State = 28;
+			ErrorHandler.Sync(this);
+			switch (TokenStream.LA(1)) {
+			case POLYGON_SECTstart:
+				EnterOuterAlt(_localctx, 1);
+				{
+				State = 24;
+				polygon_section();
+				}
+				break;
+			case POLYLINE_SECTstart:
+				EnterOuterAlt(_localctx, 2);
+				{
+				State = 25;
+				polyline_section();
+				}
+				break;
+			case POI_SECTstart:
+				EnterOuterAlt(_localctx, 3);
+				{
+				State = 26;
+				poi_section();
+				}
+				break;
+			case SECTstart:
+				EnterOuterAlt(_localctx, 4);
+				{
+				State = 27;
+				default_section();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class Polygon_sectionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode POLYGON_SECTstart() { return GetToken(GetUMPStx.POLYGON_SECTstart, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SECTend() { return GetToken(GetUMPStx.SECTend, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext[] kvEq() {
+			return GetRuleContexts<KvEqContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext kvEq(int i) {
+			return GetRuleContext<KvEqContext>(i);
+		}
+		public Polygon_sectionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_polygon_section; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IGetUMPStxVisitor<TResult> typedVisitor = visitor as IGetUMPStxVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitPolygon_section(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public Polygon_sectionContext polygon_section() {
+		Polygon_sectionContext _localctx = new Polygon_sectionContext(Context, State);
+		EnterRule(_localctx, 4, RULE_polygon_section);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 16;
-			Match(SECTstart);
-			State = 20;
+			State = 30;
+			Match(POLYGON_SECTstart);
+			State = 34;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			while (_la==LabI || _la==ID) {
 				{
 				{
-				State = 17;
+				State = 31;
 				kvEq();
 				}
 				}
-				State = 22;
+				State = 36;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			}
-			State = 23;
+			State = 37;
+			Match(SECTend);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class Polyline_sectionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode POLYLINE_SECTstart() { return GetToken(GetUMPStx.POLYLINE_SECTstart, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SECTend() { return GetToken(GetUMPStx.SECTend, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext[] kvEq() {
+			return GetRuleContexts<KvEqContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext kvEq(int i) {
+			return GetRuleContext<KvEqContext>(i);
+		}
+		public Polyline_sectionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_polyline_section; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IGetUMPStxVisitor<TResult> typedVisitor = visitor as IGetUMPStxVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitPolyline_section(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public Polyline_sectionContext polyline_section() {
+		Polyline_sectionContext _localctx = new Polyline_sectionContext(Context, State);
+		EnterRule(_localctx, 6, RULE_polyline_section);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 39;
+			Match(POLYLINE_SECTstart);
+			State = 43;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			while (_la==LabI || _la==ID) {
+				{
+				{
+				State = 40;
+				kvEq();
+				}
+				}
+				State = 45;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			}
+			State = 46;
+			Match(SECTend);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class Poi_sectionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode POI_SECTstart() { return GetToken(GetUMPStx.POI_SECTstart, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SECTend() { return GetToken(GetUMPStx.SECTend, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext[] kvEq() {
+			return GetRuleContexts<KvEqContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext kvEq(int i) {
+			return GetRuleContext<KvEqContext>(i);
+		}
+		public Poi_sectionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_poi_section; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IGetUMPStxVisitor<TResult> typedVisitor = visitor as IGetUMPStxVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitPoi_section(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public Poi_sectionContext poi_section() {
+		Poi_sectionContext _localctx = new Poi_sectionContext(Context, State);
+		EnterRule(_localctx, 8, RULE_poi_section);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 48;
+			Match(POI_SECTstart);
+			State = 52;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			while (_la==LabI || _la==ID) {
+				{
+				{
+				State = 49;
+				kvEq();
+				}
+				}
+				State = 54;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			}
+			State = 55;
+			Match(SECTend);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			ErrorHandler.ReportError(this, re);
+			ErrorHandler.Recover(this, re);
+		}
+		finally {
+			ExitRule();
+		}
+		return _localctx;
+	}
+
+	public partial class Default_sectionContext : ParserRuleContext {
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SECTstart() { return GetToken(GetUMPStx.SECTstart, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode SECTend() { return GetToken(GetUMPStx.SECTend, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext[] kvEq() {
+			return GetRuleContexts<KvEqContext>();
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public KvEqContext kvEq(int i) {
+			return GetRuleContext<KvEqContext>(i);
+		}
+		public Default_sectionContext(ParserRuleContext parent, int invokingState)
+			: base(parent, invokingState)
+		{
+		}
+		public override int RuleIndex { get { return RULE_default_section; } }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IGetUMPStxVisitor<TResult> typedVisitor = visitor as IGetUMPStxVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitDefault_section(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+
+	[RuleVersion(0)]
+	public Default_sectionContext default_section() {
+		Default_sectionContext _localctx = new Default_sectionContext(Context, State);
+		EnterRule(_localctx, 10, RULE_default_section);
+		int _la;
+		try {
+			EnterOuterAlt(_localctx, 1);
+			{
+			State = 57;
+			Match(SECTstart);
+			State = 61;
+			ErrorHandler.Sync(this);
+			_la = TokenStream.LA(1);
+			while (_la==LabI || _la==ID) {
+				{
+				{
+				State = 58;
+				kvEq();
+				}
+				}
+				State = 63;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+			}
+			State = 64;
 			Match(SECTend);
 			}
 		}
@@ -221,13 +485,13 @@ public partial class GetUMPStx : Parser {
 	[RuleVersion(0)]
 	public IdxEqIdContext idxEqId() {
 		IdxEqIdContext _localctx = new IdxEqIdContext(Context, State);
-		EnterRule(_localctx, 4, RULE_idxEqId);
+		EnterRule(_localctx, 12, RULE_idxEqId);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 25;
+			State = 66;
 			Match(ID);
-			State = 26;
+			State = 67;
 			Match(NUM);
 			}
 		}
@@ -261,6 +525,7 @@ public partial class GetUMPStx : Parser {
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode V() { return GetToken(GetUMPStx.V, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ID() { return GetToken(GetUMPStx.ID, 0); }
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LabI() { return GetToken(GetUMPStx.LabI, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NL() { return GetToken(GetUMPStx.NL, 0); }
 		public SimpleEqContext(KvEqContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
@@ -277,6 +542,7 @@ public partial class GetUMPStx : Parser {
 			return GetRuleContext<IdxEqIdContext>(0);
 		}
 		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode V() { return GetToken(GetUMPStx.V, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NL() { return GetToken(GetUMPStx.NL, 0); }
 		public IdxEqContext(KvEqContext context) { CopyFrom(context); }
 		[System.Diagnostics.DebuggerNonUserCode]
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
@@ -289,17 +555,17 @@ public partial class GetUMPStx : Parser {
 	[RuleVersion(0)]
 	public KvEqContext kvEq() {
 		KvEqContext _localctx = new KvEqContext(Context, State);
-		EnterRule(_localctx, 6, RULE_kvEq);
+		EnterRule(_localctx, 14, RULE_kvEq);
 		int _la;
 		try {
-			State = 35;
+			State = 81;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,8,Context) ) {
 			case 1:
 				_localctx = new SimpleEqContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 28;
+				State = 69;
 				((SimpleEqContext)_localctx).key = TokenStream.LT(1);
 				_la = TokenStream.LA(1);
 				if ( !(_la==LabI || _la==ID) ) {
@@ -309,22 +575,42 @@ public partial class GetUMPStx : Parser {
 					ErrorHandler.ReportMatch(this);
 				    Consume();
 				}
-				State = 29;
+				State = 70;
 				Match(EQ);
-				State = 30;
+				State = 71;
 				((SimpleEqContext)_localctx).val = Match(V);
+				State = 73;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==NL) {
+					{
+					State = 72;
+					Match(NL);
+					}
+				}
+
 				}
 				break;
 			case 2:
 				_localctx = new IdxEqContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 31;
+				State = 75;
 				((IdxEqContext)_localctx).idx = idxEqId();
-				State = 32;
+				State = 76;
 				Match(EQ);
-				State = 33;
+				State = 77;
 				((IdxEqContext)_localctx).val = Match(V);
+				State = 79;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==NL) {
+					{
+					State = 78;
+					Match(NL);
+					}
+				}
+
 				}
 				break;
 			}
@@ -341,17 +627,30 @@ public partial class GetUMPStx : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,11,38,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,1,0,5,0,10,8,0,10,0,12,0,13,
-		9,0,1,0,1,0,1,1,1,1,5,1,19,8,1,10,1,12,1,22,9,1,1,1,1,1,1,2,1,2,1,2,1,
-		3,1,3,1,3,1,3,1,3,1,3,1,3,3,3,36,8,3,1,3,0,0,4,0,2,4,6,0,1,1,0,8,9,36,
-		0,11,1,0,0,0,2,16,1,0,0,0,4,25,1,0,0,0,6,35,1,0,0,0,8,10,3,2,1,0,9,8,1,
-		0,0,0,10,13,1,0,0,0,11,9,1,0,0,0,11,12,1,0,0,0,12,14,1,0,0,0,13,11,1,0,
-		0,0,14,15,5,0,0,1,15,1,1,0,0,0,16,20,5,1,0,0,17,19,3,6,3,0,18,17,1,0,0,
-		0,19,22,1,0,0,0,20,18,1,0,0,0,20,21,1,0,0,0,21,23,1,0,0,0,22,20,1,0,0,
-		0,23,24,5,7,0,0,24,3,1,0,0,0,25,26,5,9,0,0,26,27,5,10,0,0,27,5,1,0,0,0,
-		28,29,7,0,0,0,29,30,5,4,0,0,30,36,5,11,0,0,31,32,3,4,2,0,32,33,5,4,0,0,
-		33,34,5,11,0,0,34,36,1,0,0,0,35,28,1,0,0,0,35,31,1,0,0,0,36,7,1,0,0,0,
-		3,11,20,35
+		4,1,14,84,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+		7,7,1,0,5,0,18,8,0,10,0,12,0,21,9,0,1,0,1,0,1,1,1,1,1,1,1,1,3,1,29,8,1,
+		1,2,1,2,5,2,33,8,2,10,2,12,2,36,9,2,1,2,1,2,1,3,1,3,5,3,42,8,3,10,3,12,
+		3,45,9,3,1,3,1,3,1,4,1,4,5,4,51,8,4,10,4,12,4,54,9,4,1,4,1,4,1,5,1,5,5,
+		5,60,8,5,10,5,12,5,63,9,5,1,5,1,5,1,6,1,6,1,6,1,7,1,7,1,7,1,7,3,7,74,8,
+		7,1,7,1,7,1,7,1,7,3,7,80,8,7,3,7,82,8,7,1,7,0,0,8,0,2,4,6,8,10,12,14,0,
+		1,1,0,11,12,86,0,19,1,0,0,0,2,28,1,0,0,0,4,30,1,0,0,0,6,39,1,0,0,0,8,48,
+		1,0,0,0,10,57,1,0,0,0,12,66,1,0,0,0,14,81,1,0,0,0,16,18,3,2,1,0,17,16,
+		1,0,0,0,18,21,1,0,0,0,19,17,1,0,0,0,19,20,1,0,0,0,20,22,1,0,0,0,21,19,
+		1,0,0,0,22,23,5,0,0,1,23,1,1,0,0,0,24,29,3,4,2,0,25,29,3,6,3,0,26,29,3,
+		8,4,0,27,29,3,10,5,0,28,24,1,0,0,0,28,25,1,0,0,0,28,26,1,0,0,0,28,27,1,
+		0,0,0,29,3,1,0,0,0,30,34,5,1,0,0,31,33,3,14,7,0,32,31,1,0,0,0,33,36,1,
+		0,0,0,34,32,1,0,0,0,34,35,1,0,0,0,35,37,1,0,0,0,36,34,1,0,0,0,37,38,5,
+		10,0,0,38,5,1,0,0,0,39,43,5,2,0,0,40,42,3,14,7,0,41,40,1,0,0,0,42,45,1,
+		0,0,0,43,41,1,0,0,0,43,44,1,0,0,0,44,46,1,0,0,0,45,43,1,0,0,0,46,47,5,
+		10,0,0,47,7,1,0,0,0,48,52,5,3,0,0,49,51,3,14,7,0,50,49,1,0,0,0,51,54,1,
+		0,0,0,52,50,1,0,0,0,52,53,1,0,0,0,53,55,1,0,0,0,54,52,1,0,0,0,55,56,5,
+		10,0,0,56,9,1,0,0,0,57,61,5,4,0,0,58,60,3,14,7,0,59,58,1,0,0,0,60,63,1,
+		0,0,0,61,59,1,0,0,0,61,62,1,0,0,0,62,64,1,0,0,0,63,61,1,0,0,0,64,65,5,
+		10,0,0,65,11,1,0,0,0,66,67,5,12,0,0,67,68,5,13,0,0,68,13,1,0,0,0,69,70,
+		7,0,0,0,70,71,5,7,0,0,71,73,5,14,0,0,72,74,5,8,0,0,73,72,1,0,0,0,73,74,
+		1,0,0,0,74,82,1,0,0,0,75,76,3,12,6,0,76,77,5,7,0,0,77,79,5,14,0,0,78,80,
+		5,8,0,0,79,78,1,0,0,0,79,80,1,0,0,0,80,82,1,0,0,0,81,69,1,0,0,0,81,75,
+		1,0,0,0,82,15,1,0,0,0,9,19,28,34,43,52,61,73,79,81
 	};
 
 	public static readonly ATN _ATN =
