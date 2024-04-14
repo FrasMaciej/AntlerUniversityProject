@@ -6,18 +6,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Maps;
-using Maps.Persistance;
+using Maps.Persistence;
+using NetTopologySuite.Geometries;
 
 var builder = CoconaApp.CreateBuilder();
 
 builder.Configuration.AddJsonFile("appsettings.json", true).AddEnvironmentVariables().AddUserSecrets<Program>();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
+/*var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
 dataSourceBuilder.UseNetTopologySuite();
-var dataSource = dataSourceBuilder.Build();
+var dataSource = dataSourceBuilder.Build();*/
 
-builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(dataSource));
+builder.Services.AddDbContext<MyDbContext>(options => {
+    options.UseNpgsql(connectionString, x=>x.UseNetTopologySuite());
+    } );
 
 var app = builder.Build();
 
