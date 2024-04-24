@@ -74,6 +74,20 @@ public interface IGetUMPStxVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitIdxEqId([NotNull] GetUMPStx.IdxEqIdContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>simpleEqPoints</c>
+	/// labeled alternative in <see cref="GetUMPStx.kvEq"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSimpleEqPoints([NotNull] GetUMPStx.SimpleEqPointsContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>idxEqPoints</c>
+	/// labeled alternative in <see cref="GetUMPStx.kvEq"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIdxEqPoints([NotNull] GetUMPStx.IdxEqPointsContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>simpleEq</c>
 	/// labeled alternative in <see cref="GetUMPStx.kvEq"/>.
 	/// </summary>
