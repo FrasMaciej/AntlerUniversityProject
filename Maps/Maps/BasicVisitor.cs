@@ -63,5 +63,32 @@ namespace Maps
             return base.VisitSection(context);
         }
 
+        public override object VisitSimpleEqPoints([NotNull] GetUMPStx.SimpleEqPointsContext context)
+        {
+            
+            return base.VisitSimpleEqPoints(context);
+
+        }
+
+        public override object VisitIdxEqPoints([NotNull] GetUMPStx.IdxEqPointsContext context)
+        {
+            //var tmp = context.pointsva.Type.ToString();
+            var pointsstr = context.pointsval.Text;
+            pointsstr = pointsstr.Substring(1, pointsstr.Length - 2);
+            foreach(var item in pointsstr.Split("),("))
+            {
+
+                var latitude = item.Split(",")[0];
+                var longitude = item.Split(",")[1];
+                Console.WriteLine($"Latitude: {latitude}, Longitude {longitude}");
+            }
+
+            foreach (var pt in context.GetTokens(GetUMPStx.POINTS))
+            {
+                Console.WriteLine(pt.GetText());
+            }
+            return base.VisitIdxEqPoints(context);
+        }
+
     }
 }

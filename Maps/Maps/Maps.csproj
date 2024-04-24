@@ -32,6 +32,9 @@
       <None Update="ikonki-reczniak.txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+      <None Update="wynik2.mp">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
       <None Update="wynik.mp">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>

@@ -27,7 +27,7 @@ var app = builder.Build();
 app.AddCommand("testdb", AppCommandDefinitions.TestDb);
 app.AddCommand(AppCommandDefinitions.TestDb);
 
-app.Run();
+//app.Run();
 
 Console.WriteLine("Hello, World!");
 
@@ -39,7 +39,7 @@ string input;
 
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 //input = File.ReadAllText("wynik.mp",Encoding.GetEncoding("ISO-8859-1"));
-input = File.ReadAllText("wynik.mp",Encoding.GetEncoding(1250));
+input = File.ReadAllText("wynik2.mp",Encoding.GetEncoding(1250));
 
 var lexer = new GetUMPLex(new AntlrInputStream(input));
 

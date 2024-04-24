@@ -6,17 +6,17 @@ parser grammar GetUMPStx;
 options {
   tokenVocab=GetUMPLex;
 }
-  
+
 
 file :
  	section*
  	EOF
- ; 
-   
+ ;
+
 section:
 	polygon_section |
 	polyline_section |
- 	poi_section | 
+ 	poi_section |
 	default_section
 ;
 
@@ -44,11 +44,13 @@ default_section:
 	SECTend
 ;
 
-idxEqId: ID NUM 
+idxEqId: ID NUM
 ;
 
 kvEq:
-	key=(ID|LabI) EQ val=V (NL)? #simpleEq
-|	idx=idxEqId EQ val=V (NL)? #idxEq
+	key=(ID|LabI) EQ pointsval=POINTS V_END (NL)? #simpleEqPoints
+|	idx=idxEqId EQ pointsval=POINTS V_END (NL)? #idxEqPoints
+|	key=(ID|LabI) EQ val=V?  V_END (NL)? #simpleEq
+|	idx=idxEqId EQ val=V? V_END (NL)? #idxEq;
+
 //|	ID NUM EQ val=V #idxEq
-;
