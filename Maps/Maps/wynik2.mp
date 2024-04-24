@@ -14,3 +14,16 @@ EndLevel=3
 Data0=(51.70000,2.83357),(51.87611,2.53933)
 Plik=narzedzia/granice.txt
 [END]
+
+[POI]
+Type=0x2e04
+Label=Carrefour
+EndLevel=0
+HouseNumber=11
+StreetDesc=CH Aleja Bielany, Czekoladowa
+Phone=+48 71 7807400
+Data0=(51.049199,16.963208)
+CityIdx=35
+Plik=UMP-PL-Wroclaw/src/POI-Wroclaw.pnt
+Typ=HIPER
+[END]

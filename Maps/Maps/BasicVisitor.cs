@@ -1,4 +1,5 @@
 using Antlr4.Runtime.Misc;
+using Maps.Persistence;
 
 namespace Maps
 {
@@ -8,6 +9,10 @@ namespace Maps
         public static int POICount { get; set; } = 0;
         public static int PolylineCount { get; set; } = 0;
         public static int PolyGonCount { get; set; } = 0;
+        private static PMF_Map_Polyline currentPolylineSection;
+        private static PMF_Map_Polygon currentPolygonSection;
+        private static PMF_Map_Polyline currentPOISection;
+
         public BasicVisitor()
         {
             
@@ -16,18 +21,21 @@ namespace Maps
         public override object VisitPolygon_section([NotNull] GetUMPStx.Polygon_sectionContext context)
         {
             PolyGonCount++;
+            currentPolygonSection = new PMF_Map_Polygon();
             return base.VisitPolygon_section(context);
         }
 
         public override object VisitPolyline_section([NotNull] GetUMPStx.Polyline_sectionContext context)
         {
             PolylineCount++;
+            currentPolylineSection = new PMF_Map_Polyline();
             return base.VisitPolyline_section(context);
         }
 
         public override object VisitPoi_section([NotNull] GetUMPStx.Poi_sectionContext context)
         {
             POICount++;
+            currentPOISection = new PMF_Map_Polyline();
             return base.VisitPoi_section(context);
         }
 
