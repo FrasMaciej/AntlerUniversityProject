@@ -25,15 +25,14 @@ builder.Services.AddDbContext<MyDbContext>(options => {
 var app = builder.Build();
 
 app.AddCommand("testdb", AppCommandDefinitions.TestDb);
-app.AddCommand(AppCommandDefinitions.TestDb);
+app.AddCommand("teststringtemplate", AppCommandDefinitions.TestStringTemplate);
+app.AddCommand("testparse", AppCommandDefinitions.TestParseFile);
+app.AddCommand("parseandsave", AppCommandDefinitions.ParseFile);
+app.AddCommand(AppCommandDefinitions.TestParseFile);
 
-//app.Run();
+app.Run();
 
-Console.WriteLine("Hello, World!");
 
-var st = new Antlr4.StringTemplate.Template("Hello, <name>!");
-st.Add("name", "World from StringTemplate");
-Console.WriteLine(st.Render());
 
 string input;
 
