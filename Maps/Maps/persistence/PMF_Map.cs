@@ -9,5 +9,7 @@ public class PMF_Map
     public List<PMF_Map_Polyline> Polylines { get; set; }
     public List<PMF_Map_Polygon> Polygons { get; set; }
     public List<PMF_Map_POI> POIs { get; set; }
+    public List<PMF_Map_Section> Sections { get; set; }
 
 }
+

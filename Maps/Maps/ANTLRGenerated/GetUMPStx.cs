@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from d://Studia-2st//Antler//AntlerUniversityProject//Maps//Maps//GetUMPStx.g4 by ANTLR 4.13.1
+// Generated from x:/source/Antlr/FrasMaciej/AntlerUniversityProject/Maps/Maps/GetUMPStx.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -519,6 +519,24 @@ public partial class GetUMPStx : Parser {
 			base.CopyFrom(context);
 		}
 	}
+	public partial class IdxEqPointContext : KvEqContext {
+		public IdxEqIdContext idx;
+		public IToken pointval;
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQ() { return GetToken(GetUMPStx.EQ, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode V_END() { return GetToken(GetUMPStx.V_END, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public IdxEqIdContext idxEqId() {
+			return GetRuleContext<IdxEqIdContext>(0);
+		}
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode POINT() { return GetToken(GetUMPStx.POINT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NL() { return GetToken(GetUMPStx.NL, 0); }
+		public IdxEqPointContext(KvEqContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IGetUMPStxVisitor<TResult> typedVisitor = visitor as IGetUMPStxVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitIdxEqPoint(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
 	public partial class IdxEqPointsContext : KvEqContext {
 		public IdxEqIdContext idx;
 		public IToken pointsval;
@@ -551,6 +569,23 @@ public partial class GetUMPStx : Parser {
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IGetUMPStxVisitor<TResult> typedVisitor = visitor as IGetUMPStxVisitor<TResult>;
 			if (typedVisitor != null) return typedVisitor.VisitSimpleEq(this);
+			else return visitor.VisitChildren(this);
+		}
+	}
+	public partial class SimpleEqPointContext : KvEqContext {
+		public IToken key;
+		public IToken pointval;
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode EQ() { return GetToken(GetUMPStx.EQ, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode V_END() { return GetToken(GetUMPStx.V_END, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode POINT() { return GetToken(GetUMPStx.POINT, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode ID() { return GetToken(GetUMPStx.ID, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode LabI() { return GetToken(GetUMPStx.LabI, 0); }
+		[System.Diagnostics.DebuggerNonUserCode] public ITerminalNode NL() { return GetToken(GetUMPStx.NL, 0); }
+		public SimpleEqPointContext(KvEqContext context) { CopyFrom(context); }
+		[System.Diagnostics.DebuggerNonUserCode]
+		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
+			IGetUMPStxVisitor<TResult> typedVisitor = visitor as IGetUMPStxVisitor<TResult>;
+			if (typedVisitor != null) return typedVisitor.VisitSimpleEqPoint(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
@@ -596,18 +631,18 @@ public partial class GetUMPStx : Parser {
 		EnterRule(_localctx, 14, RULE_kvEq);
 		int _la;
 		try {
-			State = 101;
+			State = 115;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,12,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,14,Context) ) {
 			case 1:
-				_localctx = new SimpleEqPointsContext(_localctx);
+				_localctx = new SimpleEqPointContext(_localctx);
 				EnterOuterAlt(_localctx, 1);
 				{
 				State = 69;
-				((SimpleEqPointsContext)_localctx).key = TokenStream.LT(1);
+				((SimpleEqPointContext)_localctx).key = TokenStream.LT(1);
 				_la = TokenStream.LA(1);
 				if ( !(_la==LabI || _la==ID) ) {
-					((SimpleEqPointsContext)_localctx).key = ErrorHandler.RecoverInline(this);
+					((SimpleEqPointContext)_localctx).key = ErrorHandler.RecoverInline(this);
 				}
 				else {
 					ErrorHandler.ReportMatch(this);
@@ -616,7 +651,7 @@ public partial class GetUMPStx : Parser {
 				State = 70;
 				Match(EQ);
 				State = 71;
-				((SimpleEqPointsContext)_localctx).pointsval = Match(POINTS);
+				((SimpleEqPointContext)_localctx).pointval = Match(POINT);
 				State = 72;
 				Match(V_END);
 				State = 74;
@@ -632,15 +667,15 @@ public partial class GetUMPStx : Parser {
 				}
 				break;
 			case 2:
-				_localctx = new IdxEqPointsContext(_localctx);
+				_localctx = new IdxEqPointContext(_localctx);
 				EnterOuterAlt(_localctx, 2);
 				{
 				State = 76;
-				((IdxEqPointsContext)_localctx).idx = idxEqId();
+				((IdxEqPointContext)_localctx).idx = idxEqId();
 				State = 77;
 				Match(EQ);
 				State = 78;
-				((IdxEqPointsContext)_localctx).pointsval = Match(POINTS);
+				((IdxEqPointContext)_localctx).pointval = Match(POINT);
 				State = 79;
 				Match(V_END);
 				State = 81;
@@ -656,10 +691,66 @@ public partial class GetUMPStx : Parser {
 				}
 				break;
 			case 3:
-				_localctx = new SimpleEqContext(_localctx);
+				_localctx = new SimpleEqPointsContext(_localctx);
 				EnterOuterAlt(_localctx, 3);
 				{
 				State = 83;
+				((SimpleEqPointsContext)_localctx).key = TokenStream.LT(1);
+				_la = TokenStream.LA(1);
+				if ( !(_la==LabI || _la==ID) ) {
+					((SimpleEqPointsContext)_localctx).key = ErrorHandler.RecoverInline(this);
+				}
+				else {
+					ErrorHandler.ReportMatch(this);
+				    Consume();
+				}
+				State = 84;
+				Match(EQ);
+				State = 85;
+				((SimpleEqPointsContext)_localctx).pointsval = Match(POINTS);
+				State = 86;
+				Match(V_END);
+				State = 88;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==NL) {
+					{
+					State = 87;
+					Match(NL);
+					}
+				}
+
+				}
+				break;
+			case 4:
+				_localctx = new IdxEqPointsContext(_localctx);
+				EnterOuterAlt(_localctx, 4);
+				{
+				State = 90;
+				((IdxEqPointsContext)_localctx).idx = idxEqId();
+				State = 91;
+				Match(EQ);
+				State = 92;
+				((IdxEqPointsContext)_localctx).pointsval = Match(POINTS);
+				State = 93;
+				Match(V_END);
+				State = 95;
+				ErrorHandler.Sync(this);
+				_la = TokenStream.LA(1);
+				if (_la==NL) {
+					{
+					State = 94;
+					Match(NL);
+					}
+				}
+
+				}
+				break;
+			case 5:
+				_localctx = new SimpleEqContext(_localctx);
+				EnterOuterAlt(_localctx, 5);
+				{
+				State = 97;
 				((SimpleEqContext)_localctx).key = TokenStream.LT(1);
 				_la = TokenStream.LA(1);
 				if ( !(_la==LabI || _la==ID) ) {
@@ -669,58 +760,58 @@ public partial class GetUMPStx : Parser {
 					ErrorHandler.ReportMatch(this);
 				    Consume();
 				}
-				State = 84;
+				State = 98;
 				Match(EQ);
-				State = 86;
+				State = 100;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				if (_la==V) {
 					{
-					State = 85;
+					State = 99;
 					((SimpleEqContext)_localctx).val = Match(V);
 					}
 				}
 
-				State = 88;
+				State = 102;
 				Match(V_END);
-				State = 90;
+				State = 104;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				if (_la==NL) {
 					{
-					State = 89;
+					State = 103;
 					Match(NL);
 					}
 				}
 
 				}
 				break;
-			case 4:
+			case 6:
 				_localctx = new IdxEqContext(_localctx);
-				EnterOuterAlt(_localctx, 4);
+				EnterOuterAlt(_localctx, 6);
 				{
-				State = 92;
+				State = 106;
 				((IdxEqContext)_localctx).idx = idxEqId();
-				State = 93;
+				State = 107;
 				Match(EQ);
-				State = 95;
+				State = 109;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				if (_la==V) {
 					{
-					State = 94;
+					State = 108;
 					((IdxEqContext)_localctx).val = Match(V);
 					}
 				}
 
-				State = 97;
+				State = 111;
 				Match(V_END);
-				State = 99;
+				State = 113;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				if (_la==NL) {
 					{
-					State = 98;
+					State = 112;
 					Match(NL);
 					}
 				}
@@ -741,37 +832,42 @@ public partial class GetUMPStx : Parser {
 	}
 
 	private static int[] _serializedATN = {
-		4,1,19,104,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
+		4,1,19,118,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,
 		7,7,1,0,5,0,18,8,0,10,0,12,0,21,9,0,1,0,1,0,1,1,1,1,1,1,1,1,3,1,29,8,1,
 		1,2,1,2,5,2,33,8,2,10,2,12,2,36,9,2,1,2,1,2,1,3,1,3,5,3,42,8,3,10,3,12,
 		3,45,9,3,1,3,1,3,1,4,1,4,5,4,51,8,4,10,4,12,4,54,9,4,1,4,1,4,1,5,1,5,5,
 		5,60,8,5,10,5,12,5,63,9,5,1,5,1,5,1,6,1,6,1,6,1,7,1,7,1,7,1,7,1,7,3,7,
-		75,8,7,1,7,1,7,1,7,1,7,1,7,3,7,82,8,7,1,7,1,7,1,7,3,7,87,8,7,1,7,1,7,3,
-		7,91,8,7,1,7,1,7,1,7,3,7,96,8,7,1,7,1,7,3,7,100,8,7,3,7,102,8,7,1,7,0,
-		0,8,0,2,4,6,8,10,12,14,0,1,1,0,11,12,112,0,19,1,0,0,0,2,28,1,0,0,0,4,30,
-		1,0,0,0,6,39,1,0,0,0,8,48,1,0,0,0,10,57,1,0,0,0,12,66,1,0,0,0,14,101,1,
-		0,0,0,16,18,3,2,1,0,17,16,1,0,0,0,18,21,1,0,0,0,19,17,1,0,0,0,19,20,1,
-		0,0,0,20,22,1,0,0,0,21,19,1,0,0,0,22,23,5,0,0,1,23,1,1,0,0,0,24,29,3,4,
-		2,0,25,29,3,6,3,0,26,29,3,8,4,0,27,29,3,10,5,0,28,24,1,0,0,0,28,25,1,0,
-		0,0,28,26,1,0,0,0,28,27,1,0,0,0,29,3,1,0,0,0,30,34,5,1,0,0,31,33,3,14,
-		7,0,32,31,1,0,0,0,33,36,1,0,0,0,34,32,1,0,0,0,34,35,1,0,0,0,35,37,1,0,
-		0,0,36,34,1,0,0,0,37,38,5,10,0,0,38,5,1,0,0,0,39,43,5,2,0,0,40,42,3,14,
-		7,0,41,40,1,0,0,0,42,45,1,0,0,0,43,41,1,0,0,0,43,44,1,0,0,0,44,46,1,0,
-		0,0,45,43,1,0,0,0,46,47,5,10,0,0,47,7,1,0,0,0,48,52,5,3,0,0,49,51,3,14,
-		7,0,50,49,1,0,0,0,51,54,1,0,0,0,52,50,1,0,0,0,52,53,1,0,0,0,53,55,1,0,
-		0,0,54,52,1,0,0,0,55,56,5,10,0,0,56,9,1,0,0,0,57,61,5,4,0,0,58,60,3,14,
-		7,0,59,58,1,0,0,0,60,63,1,0,0,0,61,59,1,0,0,0,61,62,1,0,0,0,62,64,1,0,
-		0,0,63,61,1,0,0,0,64,65,5,10,0,0,65,11,1,0,0,0,66,67,5,12,0,0,67,68,5,
-		13,0,0,68,13,1,0,0,0,69,70,7,0,0,0,70,71,5,7,0,0,71,72,5,16,0,0,72,74,
-		5,19,0,0,73,75,5,8,0,0,74,73,1,0,0,0,74,75,1,0,0,0,75,102,1,0,0,0,76,77,
-		3,12,6,0,77,78,5,7,0,0,78,79,5,16,0,0,79,81,5,19,0,0,80,82,5,8,0,0,81,
-		80,1,0,0,0,81,82,1,0,0,0,82,102,1,0,0,0,83,84,7,0,0,0,84,86,5,7,0,0,85,
-		87,5,18,0,0,86,85,1,0,0,0,86,87,1,0,0,0,87,88,1,0,0,0,88,90,5,19,0,0,89,
-		91,5,8,0,0,90,89,1,0,0,0,90,91,1,0,0,0,91,102,1,0,0,0,92,93,3,12,6,0,93,
-		95,5,7,0,0,94,96,5,18,0,0,95,94,1,0,0,0,95,96,1,0,0,0,96,97,1,0,0,0,97,
-		99,5,19,0,0,98,100,5,8,0,0,99,98,1,0,0,0,99,100,1,0,0,0,100,102,1,0,0,
-		0,101,69,1,0,0,0,101,76,1,0,0,0,101,83,1,0,0,0,101,92,1,0,0,0,102,15,1,
-		0,0,0,13,19,28,34,43,52,61,74,81,86,90,95,99,101
+		75,8,7,1,7,1,7,1,7,1,7,1,7,3,7,82,8,7,1,7,1,7,1,7,1,7,1,7,3,7,89,8,7,1,
+		7,1,7,1,7,1,7,1,7,3,7,96,8,7,1,7,1,7,1,7,3,7,101,8,7,1,7,1,7,3,7,105,8,
+		7,1,7,1,7,1,7,3,7,110,8,7,1,7,1,7,3,7,114,8,7,3,7,116,8,7,1,7,0,0,8,0,
+		2,4,6,8,10,12,14,0,1,1,0,11,12,130,0,19,1,0,0,0,2,28,1,0,0,0,4,30,1,0,
+		0,0,6,39,1,0,0,0,8,48,1,0,0,0,10,57,1,0,0,0,12,66,1,0,0,0,14,115,1,0,0,
+		0,16,18,3,2,1,0,17,16,1,0,0,0,18,21,1,0,0,0,19,17,1,0,0,0,19,20,1,0,0,
+		0,20,22,1,0,0,0,21,19,1,0,0,0,22,23,5,0,0,1,23,1,1,0,0,0,24,29,3,4,2,0,
+		25,29,3,6,3,0,26,29,3,8,4,0,27,29,3,10,5,0,28,24,1,0,0,0,28,25,1,0,0,0,
+		28,26,1,0,0,0,28,27,1,0,0,0,29,3,1,0,0,0,30,34,5,1,0,0,31,33,3,14,7,0,
+		32,31,1,0,0,0,33,36,1,0,0,0,34,32,1,0,0,0,34,35,1,0,0,0,35,37,1,0,0,0,
+		36,34,1,0,0,0,37,38,5,10,0,0,38,5,1,0,0,0,39,43,5,2,0,0,40,42,3,14,7,0,
+		41,40,1,0,0,0,42,45,1,0,0,0,43,41,1,0,0,0,43,44,1,0,0,0,44,46,1,0,0,0,
+		45,43,1,0,0,0,46,47,5,10,0,0,47,7,1,0,0,0,48,52,5,3,0,0,49,51,3,14,7,0,
+		50,49,1,0,0,0,51,54,1,0,0,0,52,50,1,0,0,0,52,53,1,0,0,0,53,55,1,0,0,0,
+		54,52,1,0,0,0,55,56,5,10,0,0,56,9,1,0,0,0,57,61,5,4,0,0,58,60,3,14,7,0,
+		59,58,1,0,0,0,60,63,1,0,0,0,61,59,1,0,0,0,61,62,1,0,0,0,62,64,1,0,0,0,
+		63,61,1,0,0,0,64,65,5,10,0,0,65,11,1,0,0,0,66,67,5,12,0,0,67,68,5,13,0,
+		0,68,13,1,0,0,0,69,70,7,0,0,0,70,71,5,7,0,0,71,72,5,15,0,0,72,74,5,19,
+		0,0,73,75,5,8,0,0,74,73,1,0,0,0,74,75,1,0,0,0,75,116,1,0,0,0,76,77,3,12,
+		6,0,77,78,5,7,0,0,78,79,5,15,0,0,79,81,5,19,0,0,80,82,5,8,0,0,81,80,1,
+		0,0,0,81,82,1,0,0,0,82,116,1,0,0,0,83,84,7,0,0,0,84,85,5,7,0,0,85,86,5,
+		16,0,0,86,88,5,19,0,0,87,89,5,8,0,0,88,87,1,0,0,0,88,89,1,0,0,0,89,116,
+		1,0,0,0,90,91,3,12,6,0,91,92,5,7,0,0,92,93,5,16,0,0,93,95,5,19,0,0,94,
+		96,5,8,0,0,95,94,1,0,0,0,95,96,1,0,0,0,96,116,1,0,0,0,97,98,7,0,0,0,98,
+		100,5,7,0,0,99,101,5,18,0,0,100,99,1,0,0,0,100,101,1,0,0,0,101,102,1,0,
+		0,0,102,104,5,19,0,0,103,105,5,8,0,0,104,103,1,0,0,0,104,105,1,0,0,0,105,
+		116,1,0,0,0,106,107,3,12,6,0,107,109,5,7,0,0,108,110,5,18,0,0,109,108,
+		1,0,0,0,109,110,1,0,0,0,110,111,1,0,0,0,111,113,5,19,0,0,112,114,5,8,0,
+		0,113,112,1,0,0,0,113,114,1,0,0,0,114,116,1,0,0,0,115,69,1,0,0,0,115,76,
+		1,0,0,0,115,83,1,0,0,0,115,90,1,0,0,0,115,97,1,0,0,0,115,106,1,0,0,0,116,
+		15,1,0,0,0,15,19,28,34,43,52,61,74,81,88,95,100,104,109,113,115
 	};
 
 	public static readonly ATN _ATN =

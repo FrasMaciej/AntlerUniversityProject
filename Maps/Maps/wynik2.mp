@@ -15,6 +15,7 @@ Data0=(51.70000,2.83357),(51.87611,2.53933)
 Plik=narzedzia/granice.txt
 [END]
 
+
 [POI]
 Type=0x2e04
 Label=Carrefour

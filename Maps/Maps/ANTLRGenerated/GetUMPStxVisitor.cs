@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from d://Studia-2st//Antler//AntlerUniversityProject//Maps//Maps//GetUMPStx.g4 by ANTLR 4.13.1
+// Generated from x:/source/Antlr/FrasMaciej/AntlerUniversityProject/Maps/Maps/GetUMPStx.g4 by ANTLR 4.13.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -73,6 +73,20 @@ public interface IGetUMPStxVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitIdxEqId([NotNull] GetUMPStx.IdxEqIdContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>simpleEqPoint</c>
+	/// labeled alternative in <see cref="GetUMPStx.kvEq"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSimpleEqPoint([NotNull] GetUMPStx.SimpleEqPointContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>idxEqPoint</c>
+	/// labeled alternative in <see cref="GetUMPStx.kvEq"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIdxEqPoint([NotNull] GetUMPStx.IdxEqPointContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>simpleEqPoints</c>
 	/// labeled alternative in <see cref="GetUMPStx.kvEq"/>.

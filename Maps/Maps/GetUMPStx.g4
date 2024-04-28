@@ -48,7 +48,9 @@ idxEqId: ID NUM
 ;
 
 kvEq:
-	key=(ID|LabI) EQ pointsval=POINTS V_END (NL)? #simpleEqPoints
+	key=(ID|LabI) EQ pointval=POINT V_END (NL)? #simpleEqPoint
+|	idx=idxEqId EQ pointval=POINT V_END (NL)? #idxEqPoint
+|	key=(ID|LabI) EQ pointsval=POINTS V_END (NL)? #simpleEqPoints
 |	idx=idxEqId EQ pointsval=POINTS V_END (NL)? #idxEqPoints
 |	key=(ID|LabI) EQ val=V?  V_END (NL)? #simpleEq
 |	idx=idxEqId EQ val=V? V_END (NL)? #idxEq;

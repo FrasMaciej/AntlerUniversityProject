@@ -7,10 +7,11 @@ namespace Maps.Persistence;
 public class MyDbContext : DbContext
 {
     public DbSet<PMF_Map> Maps { get; set; }
-    public DbSet<PMF_Map_Attributes> MapAttributes { get; set; }
+    public DbSet<PMF_Map_Attribute> MapAttributes { get; set; }
     public DbSet<PMF_Map_Polyline> MapPolylines { get; set; }
     public DbSet<PMF_Map_Polygon> MapPolygons { get; set; }
     public DbSet<PMF_Map_POI> MapPOIs { get; set; }
+    public DbSet<PMF_Map_Section> Map_Sections { get; set; }
 
     public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
     {
@@ -33,18 +34,32 @@ public class MyDbContext : DbContext
         modelBuilder.HasPostgresExtension("postgis");
 
         modelBuilder.Entity<PMF_Map>().ToTable("PMF_Map");
-        modelBuilder.Entity<PMF_Map_Attributes>().ToTable("PMF_Map_Attributes");
+        modelBuilder.Entity<PMF_Map_Attribute>().ToTable("PMF_Map_Attributes");
         modelBuilder.Entity<PMF_Map_Polyline>().ToTable("PMF_Map_Polylines");
         modelBuilder.Entity<PMF_Map_Polygon>().ToTable("PMF_Map_Polygons");
         modelBuilder.Entity<PMF_Map_POI>().ToTable("PMF_Map_POIs");
+        modelBuilder.Entity<PMF_Map_Section>().ToTable("PMF_Map_Sections");
+
+        modelBuilder.Entity<PMF_Map>().HasMany<PMF_Map_Section>(v => v.Sections)
+            .WithOne(v => v.PMF_Map)
+            .HasForeignKey(v => v.PMF_MapID)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<PMF_Map_Section>()
+            .HasMany<PMF_Map_Attribute>(v => v.Attributes)
+            .WithOne(v => v.PMF_Map_Section)
+            .HasForeignKey(v => v.PMF_Map_SectionID)
+            .OnDelete(DeleteBehavior.NoAction);
+
+
 
         //modelBuilder.Entity<PMF_Map_Polyline>().Property(p => p.LineString).HasColumnType("geometry").HasConversion(new LineStringConverter());//.HasConversion(p => p != null ? p.AsText() : null, s => ParseLineString(s));
         //modelBuilder.Entity<PMF_Map_Polygon>().Property(p => p.Polygon).HasColumnType("geometry (polygon)");//.HasConversion(p=>p != null ? p.AsText() : null, s => ParsePolygon(s));
         //modelBuilder.Entity<PMF_Map_POI>().Property(p => p.Point).HasColumnType("geometry (point)");//.HasConversion(p => p != null ? p.AsText() : null, s => ParsePoint(s));
 
-        modelBuilder.Entity<PMF_Map_Attributes>().HasOne(a => a.PMF_Map).WithMany().HasForeignKey(a => a.PMF_MapID);
-        //modelBuilder.Entity<PMF_Map_Polyline>().HasOne(p => p.PMF_Map).WithMany(m=>m.Polylines).HasForeignKey(p => p.PMF_MapID);
-        //modelBuilder.Entity<PMF_Map_Polygon>().HasOne(p => p.PMF_Map).WithMany(m=>m.Polygons).HasForeignKey(p => p.PMF_MapID);
+        modelBuilder.Entity<PMF_Map_Attribute>().HasOne(a => a.PMF_Map).WithMany().HasForeignKey(a => a.PMF_MapID);
+        modelBuilder.Entity<PMF_Map_Polyline>().HasOne(p => p.PMF_Map).WithMany(m=>m.Polylines).HasForeignKey(p => p.PMF_MapID);
+        modelBuilder.Entity<PMF_Map_Polygon>().HasOne(p => p.PMF_Map).WithMany(m=>m.Polygons).HasForeignKey(p => p.PMF_MapID);
         modelBuilder.Entity<PMF_Map_POI>().HasOne(p => p.PMF_Map).WithMany(m=>m.POIs).HasForeignKey(p => p.PMF_MapID);
 
 
