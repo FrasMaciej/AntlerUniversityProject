@@ -28,13 +28,14 @@ app.AddCommand("testdb", AppCommandDefinitions.TestDb);
 app.AddCommand("teststringtemplate", AppCommandDefinitions.TestStringTemplate);
 app.AddCommand("testparse", AppCommandDefinitions.TestParseFile);
 app.AddCommand("parseandsave", AppCommandDefinitions.ParseFile);
-app.AddCommand(AppCommandDefinitions.TestParseFile);
+app.AddCommand(AppCommandDefinitions.ParseFile);
 
 app.Run();
 
+Console.ReadLine();
 
 
-string input;
+/*string input;
 
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 //input = File.ReadAllText("wynik.mp",Encoding.GetEncoding("ISO-8859-1"));
@@ -49,6 +50,7 @@ var parser = new GetUMPStx(tokens);
 GetUMPStx.FileContext file = parser.file();
 
 var visitor = new BasicVisitor();
+
 visitor.Visit(file);
 
-Console.ReadLine();
+Console.ReadLine();*/

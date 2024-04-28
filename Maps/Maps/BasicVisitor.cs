@@ -16,7 +16,7 @@ public class BasicVisitor : GetUMPStxBaseVisitor<object>
     private PMF_Map_Polyline? currentPolylineSection;
     private PMF_Map_Polygon? currentPolygonSection;
     private PMF_Map_POI? currentPOISection;
-    private PMF_Map currentMap;
+    public PMF_Map currentMap { get; set; }
 
     public BasicVisitor()
     {
@@ -120,7 +120,7 @@ public class BasicVisitor : GetUMPStxBaseVisitor<object>
         var idnum = int.Parse(context.idx.NUM().GetText());
         var val = context.val?.Text ?? "";
 
-        PMF_Map_Attribute attr = new PMF_Map_Attribute() { Name = $"{id}{idnum}", Key = id, KeyIdx=idnum, Value = val };
+        PMF_Map_Attribute attr = new PMF_Map_Attribute() { Name = $"{id}{idnum}"??"", Key = id??"", KeyIdx=idnum, Value = val };
         if(currentMap is not null)
         {
             attr.PMF_Map = currentMap;
@@ -140,10 +140,10 @@ public class BasicVisitor : GetUMPStxBaseVisitor<object>
 
     public override object VisitSimpleEq([NotNull] GetUMPStx.SimpleEqContext context)
     {
-        var key = context.key.Text;
+        var key = context.key.Text ?? "";
         var val = context.val?.Text ?? "";
 
-        PMF_Map_Attribute attr = new PMF_Map_Attribute() { Name = key, Key = key, Value = val };
+        PMF_Map_Attribute attr = new PMF_Map_Attribute() { Name = key??"", Key = key??"", Value = val };
         if (currentMap is not null)
         {
             attr.PMF_Map = currentMap;
@@ -187,21 +187,21 @@ public class BasicVisitor : GetUMPStxBaseVisitor<object>
         if (points is null || points.Count == 0) return base.VisitSimpleEqPoints(context);
         if (currentPOISection is not null)
         {
-            currentPOISection.Name = key;
-            currentPOISection.Key = key;
+            currentPOISection.Name = key ?? "";
+            currentPOISection.Key = key ?? "";
             currentPOISection.Point = points[0];
         }
         else if (currentPolygonSection is not null)
         {
-            currentPolygonSection.Name = key;
-            currentPolygonSection.Key = key;
+            currentPolygonSection.Name = key ?? "";
+            currentPolygonSection.Key = key ?? "";
             currentPolygonSection.Polygon = new Polygon(new LinearRing(coords.ToArray()));
                 //currentPolygonSection.Points.Add(new Coordinate(double.Parse(latitude), double.Parse(longitude)));
             }
         else if (currentPolylineSection is not null)
         {
-            currentPolylineSection.Name = key;
-            currentPolylineSection.Key = key;
+            currentPolylineSection.Name = key ?? "";
+            currentPolylineSection.Key = key ?? "";
             currentPolylineSection.LineString = new LineString(coords.ToArray());
         }
         return base.VisitSimpleEqPoints(context);
@@ -237,14 +237,14 @@ public class BasicVisitor : GetUMPStxBaseVisitor<object>
         if (points is null || points.Count == 0) return base.VisitIdxEqPoints(context);
         if (currentPOISection is not null)
         {
-            currentPOISection.Name = $"{key}{keyIdx}";
+            currentPOISection.Name = $"{key}{keyIdx}" ?? "";
             currentPOISection.Key = key;
             currentPOISection.KeyIdx = keyIdx;
             currentPOISection.Point = points[0];
         }
         else if (currentPolygonSection is not null)
         {
-            currentPolygonSection.Name = $"{key}{keyIdx}";
+            currentPolygonSection.Name = $"{key}{keyIdx}" ?? "";
             currentPolygonSection.Key = key;
             currentPolygonSection.KeyIdx = keyIdx;
             coords.Add(coords[0]);
@@ -253,7 +253,7 @@ public class BasicVisitor : GetUMPStxBaseVisitor<object>
         }
         else if (currentPolylineSection is not null)
         {
-            currentPolylineSection.Name = $"{key}{keyIdx}";
+            currentPolylineSection.Name = $"{key}{keyIdx}" ?? "";
             currentPolylineSection.Key = key;
             currentPolylineSection.KeyIdx = keyIdx;
             currentPolylineSection.LineString = new LineString(coords.ToArray());
@@ -312,7 +312,7 @@ public class BasicVisitor : GetUMPStxBaseVisitor<object>
         }
         else
         {
-            PMF_Map_Attribute attr = new PMF_Map_Attribute() { Name = key, Key = key, Value = pointstr };
+            PMF_Map_Attribute attr = new PMF_Map_Attribute() { Name = key ?? "", Key = key ?? "", Value = pointstr };
             if (currentMap is not null)
             {
                 attr.PMF_Map = currentMap;
@@ -365,7 +365,7 @@ public class BasicVisitor : GetUMPStxBaseVisitor<object>
         }
         else
         {
-            PMF_Map_Attribute attr = new PMF_Map_Attribute() { Name = $"{key}{keyIdx}", Key = key,KeyIdx=keyIdx, Value = pointstr };
+            PMF_Map_Attribute attr = new PMF_Map_Attribute() { Name = $"{key}{keyIdx}" ?? "", Key = key ?? "", KeyIdx=keyIdx, Value = pointstr };
             if (currentMap is not null)
             {
                 attr.PMF_Map = currentMap;

@@ -87,8 +87,42 @@ public class AppCommandDefinitions
         visitor.Visit(file);
     }
 
-    public static void ParseFile()
+    public static void ParseFile([FromService] MyDbContext context, [FromService] ILogger<AppCommandDefinitions> logger)
     {
+        string filename = "wynik.mp";
+        string input;
 
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        //input = File.ReadAllText("wynik.mp",Encoding.GetEncoding("ISO-8859-1"));
+        input = File.ReadAllText(filename, Encoding.GetEncoding(1250));
+
+        logger.LogInformation($"Map from {filename} read at {DateTime.Now}");
+
+        var lexer = new GetUMPLex(new AntlrInputStream(input));
+
+        var tokens = new CommonTokenStream(lexer);
+
+        var parser = new GetUMPStx(tokens);
+
+        GetUMPStx.FileContext file = parser.file();
+
+        logger.LogInformation($"Map from {filename} successfully parsed at {DateTime.Now}");
+
+        var visitor = new BasicVisitor();
+        visitor.Visit(file);
+        logger.LogInformation($"Map from {filename} successfully visited at {DateTime.Now}");
+        var map = visitor.currentMap;
+        map.Bytes = File.ReadAllBytes(filename);
+        map.FileName = filename;
+        map.Description = $"Map from {filename} Imported at {DateTime.Now}";
+        
+
+        context.Maps.Add(visitor.currentMap);
+
+        logger.LogInformation($"Map from {filename} successfully added to context at {DateTime.Now}");
+        logger.LogInformation($"Started uploading data to db at {DateTime.Now}");
+
+        context.SaveChanges();
+        logger.LogInformation($"Map from {filename} successfully uploaded at {DateTime.Now}");
     }
 }
