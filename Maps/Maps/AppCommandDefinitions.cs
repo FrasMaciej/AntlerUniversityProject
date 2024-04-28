@@ -67,13 +67,20 @@ public class AppCommandDefinitions
         //Console.WriteLine(st.Render());
     }
 
-    public static void TestParseFile()
+    public static void TestParseFile([FromService] ILogger<AppCommandDefinitions> logger)
     {
         string input;
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         //input = File.ReadAllText("wynik.mp",Encoding.GetEncoding("ISO-8859-1"));
-        input = File.ReadAllText("wynik.mp", Encoding.GetEncoding(1250));
+        Console.Write("Enter filename: ");
+        var filename = Console.ReadLine();
+        if(filename == null)
+        {
+            logger.LogError("No filename provided");
+            return;
+        }
+        input = File.ReadAllText(filename, Encoding.GetEncoding(1250));
 
         var lexer = new GetUMPLex(new AntlrInputStream(input));
 
@@ -89,7 +96,14 @@ public class AppCommandDefinitions
 
     public static void ParseFile([FromService] MyDbContext context, [FromService] ILogger<AppCommandDefinitions> logger)
     {
-        string filename = "wynik.mp";
+        // string filename = "wynik.mp";
+        Console.Write("Enter filename: ");
+        var filename = Console.ReadLine();
+        if(filename == null)
+        {
+            logger.LogError("No filename provided");
+            return;
+        }
         string input;
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
